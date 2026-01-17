@@ -1,12 +1,45 @@
 import { Component } from '@angular/core';
 import { IonHeader, IonToolbar, IonTitle, IonContent } from '@ionic/angular/standalone';
+import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+import { CommonModule } from '@angular/common';
+
 
 @Component({
   selector: 'app-home',
   templateUrl: 'home.page.html',
   styleUrls: ['home.page.scss'],
-  imports: [IonHeader, IonToolbar, IonTitle, IonContent],
+  imports: [IonHeader, IonToolbar, IonTitle, IonContent,CommonModule],
+  schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
 export class HomePage {
+  genres = [
+    { 
+      title: "musica rock",
+      image: "https://sp.yimg.com/ib/th/id/OIP.y1tzW0Afisqoyxt2FlcCcQAAAA?pid=Api&w=148&h=148&c=7&rs=1",
+      description: "Se conoce como rock a un conjunto de géneros variados de música popular, descendientes del rock and roll original, nacido en los Estados Unidos en la década de 1950",
+
+    },
+
+    {
+      title: "musica pop",
+      image: "https://www.musicgrotto.com/wp-content/uploads/2022/12/vecteezy_pop-music-vintage-3d-vector-lettering-retro-bold-font_7379506.jpg",
+      description: "es un género de música popular que tuvo su origen a finales de los años 1950 como una derivación del Pop tradicional, en combinación con otros géneros musicales que estaban de moda en aquel momento.",
+    },
+
+    {
+      title: "musica balada",
+      image: "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEi15HJL_Noo6houhIbBluEkB_IIINfVKhEDvVPNyqlLaGiCLy36-drPq2bLsbupr0oP-xf0zD74eLaK000VxUONH9JAFCWtWBi8a0ViY5LtJaSG5VewLJYLbpPqA3GkDSd5H402PVM88WKp5M4kAzNSJ5Md3VIGE_1zlghvpO0JqAQyKtJGJtWwiCKn/s300/baladas-2.jpg",
+      description: " es un género de música popular que tuvo su origen a finales de los años 1950 como una derivación del Pop tradicional, en combinación con otros géneros musicales que estaban de moda en aquel momento.",
+    },
+    
+    {
+      title: "musica llanera",
+      image: "https://danzamundial.net/wp-content/uploads/arpa-llanera-venezolana-tallada.webp",
+      description: "La música llanera, también conocida como joropo, es mucho más que un género musical; es la expresión cultural vibrante y apasionada de los Llanos Orientales de Colombia y Venezuela. Es una manifestación artística que refleja la vida, las costumbres, el paisaje y el sentir de los llaneros",
+
+    }
+  
+
+  ]
   constructor() {}
 }
