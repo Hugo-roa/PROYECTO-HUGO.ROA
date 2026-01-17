@@ -12,6 +12,24 @@ import { CommonModule } from '@angular/common';
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
 export class HomePage {
+  colclafondo = 'var(--color-claro-fondo)';
+  coloscfondo = 'var(--color-oscuro-fondo)';
+  colactualfondo= this.coloscfondo;
+
+  colclatexto = 'var(--color-claro-texto)';
+  colosctexto = 'var(--color-oscuro-texto)';
+  colactualtexto = this.colosctexto;
+
+  colclatitulo = 'var(--color-claro-titulo)';
+  colosctitulo = 'var(--color-oscuro-titulo)';
+  colactualtitulo = this.colosctitulo;
+
+  colclahome = 'var(--color-claro-home)';
+  coloschome = 'var(--color-oscuro-home)';
+  colactualhome = this.coloschome;
+
+  
+
   genres = [
     { 
       title: "musica rock",
@@ -23,14 +41,16 @@ export class HomePage {
     {
       title: "musica pop",
       image: "https://www.musicgrotto.com/wp-content/uploads/2022/12/vecteezy_pop-music-vintage-3d-vector-lettering-retro-bold-font_7379506.jpg",
-      description: "es un género de música popular que tuvo su origen a finales de los años 1950 como una derivación del Pop tradicional, en combinación con otros géneros musicales que estaban de moda en aquel momento.",
+      description: "Es un género de música popular que tuvo su origen a finales de los años 1950 como una derivación del Pop tradicional, en combinación con otros géneros musicales que estaban de moda en aquel momento.",
     },
 
     {
       title: "musica balada",
       image: "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEi15HJL_Noo6houhIbBluEkB_IIINfVKhEDvVPNyqlLaGiCLy36-drPq2bLsbupr0oP-xf0zD74eLaK000VxUONH9JAFCWtWBi8a0ViY5LtJaSG5VewLJYLbpPqA3GkDSd5H402PVM88WKp5M4kAzNSJ5Md3VIGE_1zlghvpO0JqAQyKtJGJtWwiCKn/s300/baladas-2.jpg",
-      description: " es un género de música popular que tuvo su origen a finales de los años 1950 como una derivación del Pop tradicional, en combinación con otros géneros musicales que estaban de moda en aquel momento.",
+      description: " Es un género de música popular que tuvo su origen a finales de los años 1950 como una derivación del Pop tradicional, en combinación con otros géneros musicales que estaban de moda en aquel momento.",
+
     },
+  
     
     {
       title: "musica llanera",
@@ -42,4 +62,30 @@ export class HomePage {
 
   ]
   constructor() {}
+
+  cambiarcolor() {
+    
+    this.colactualtexto = this.colactualtexto === this.colosctexto ? this.colclatexto : this.colosctexto ;
+    
+  }
+
+  cambiarcolortitulo() {
+
+    this.colactualtitulo = this.colactualtitulo === this.colosctitulo ? this.colclatitulo : this.colosctitulo;
+  }
+
+  cambiarcolorfondo() {
+
+    this.colactualfondo = this.colactualfondo === this.coloscfondo ? this.colclafondo : this.coloscfondo ;
+
+  }
+
+  cambiarcolorhome() {
+
+    this.colactualhome = this.colactualhome === this.coloschome ? this.colclahome : this.coloschome ;
+
+  }
+
+
 }
+  
