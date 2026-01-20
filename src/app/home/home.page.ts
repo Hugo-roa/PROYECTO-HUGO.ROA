@@ -1,8 +1,8 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { IonHeader, IonToolbar, IonTitle, IonContent } from '@ionic/angular/standalone';
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { CommonModule } from '@angular/common';
-
+import { StorageService } from '../services/storage';
 
 @Component({
   selector: 'app-home',
@@ -11,12 +11,12 @@ import { CommonModule } from '@angular/common';
   imports: [IonHeader, IonToolbar, IonTitle, IonContent,CommonModule],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
-export class HomePage {
+export class HomePage implements OnInit {
   colclafondo = 'var(--color-claro-fondo)';
   coloscfondo = 'var(--color-oscuro-fondo)';
   colactualfondo= this.coloscfondo;
 
-  colclatexto = 'var(--color-claro-texto)';
+  colclatexto = 'var(--color-claro-texto)'; 
   colosctexto = 'var(--color-oscuro-texto)';
   colactualtexto = this.colosctexto;
 
@@ -61,12 +61,24 @@ export class HomePage {
   
 
   ]
-  constructor() {}
+  constructor(private storageService: StorageService) {}
+ 
+  async ngOnInit () {
+    await this.loadStorageData();
+  }
 
-  cambiarcolor() {
+  async loadStorageData(){
+    const savedtheme = await this.storageService.get('theme');
+    if (savedtheme){ 
+      this.colactualtexto = savedtheme;
+
+    }
+  }
+  async cambiarcolor() {
     
     this.colactualtexto = this.colactualtexto === this.colosctexto ? this.colclatexto : this.colosctexto ;
-    
+    await this.storageService.set('theme', this.colactualtexto)
+    console.log('tema Guardado:', this.colactualtexto)  
   }
 
   cambiarcolortitulo() {
@@ -85,7 +97,8 @@ export class HomePage {
     this.colactualhome = this.colactualhome === this.coloschome ? this.colclahome : this.coloschome ;
 
   }
-
+  
+  
 
 }
   

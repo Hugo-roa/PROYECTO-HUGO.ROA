@@ -20,6 +20,7 @@
       <p [style.color]="colactualtexto">
         {{ genre.description }}</p>
    </div>
+
    
    <ion-button (click)="cambiarcolor()">
         texto
@@ -40,5 +41,14 @@
 
   </swiper-container>
    
- 
+<!-- Demo de Storage -->  
+  <div>
+    <h3>Demo Ionic Storage</h3>
+    <div [style.background-color]="colactualtexto">
+      <p>Team Actual: {{ colactualtexto == colosctexto ? 'osctexto' : 'clatexto'}}</p>
+    </div>
+  </div>
+  <div>
+    <ion-button (click)="cambiarcolor()">cambiar Tema y Guardar</ion-button>
+  </div> 
 </ion-content>
