@@ -37,18 +37,23 @@
    <ion-button (click)="cambiarcolorhome()">
         home   
    </ion-button>
-  </swiper-slide>
 
-  </swiper-container>
-   
-<!-- Demo de Storage -->  
+    <ion-button (click)="goForwar()">ir a INTRO</ion-button>
+
+    <ion-button (click)="cambiarcolor()">cambia Tema y Guarda</ion-button>
+
   <div>
-    <h3>Demo Ionic Storage</h3>
+    <h3>DEMO IONIC STORAGE</h3>
     <div [style.background-color]="colactualtexto">
       <p>Team Actual: {{ colactualtexto == colosctexto ? 'osctexto' : 'clatexto'}}</p>
     </div>
   </div>
-  <div>
-    <ion-button (click)="cambiarcolor()">cambiar Tema y Guardar</ion-button>
-  </div> 
+    
+  </swiper-slide>
+
+  </swiper-container>
+   
+ 
+  
+   
 </ion-content>

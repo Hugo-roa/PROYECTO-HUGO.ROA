@@ -1,14 +1,16 @@
 import { Component, OnInit } from '@angular/core';
-import { IonHeader, IonToolbar, IonTitle, IonContent } from '@ionic/angular/standalone';
+import { IonicModule } from '@ionic/angular';
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { StorageService } from '../services/storage';
+import {  Router } from '@angular/router';
+
 
 @Component({
   selector: 'app-home',
   templateUrl: 'home.page.html',
   styleUrls: ['home.page.scss'],
-  imports: [IonHeader, IonToolbar, IonTitle, IonContent,CommonModule],
+  imports: [IonicModule,CommonModule],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
 export class HomePage implements OnInit {
@@ -61,7 +63,13 @@ export class HomePage implements OnInit {
   
 
   ]
-  constructor(private storageService: StorageService) {}
+  constructor(private storageService: StorageService, 
+   private router: Router) {}
+
+  goForwar() {
+    console.log( "ir a intro")
+    this.router.navigateByUrl('/intro');
+   }
  
   async ngOnInit () {
     await this.loadStorageData();
@@ -97,7 +105,8 @@ export class HomePage implements OnInit {
     this.colactualhome = this.colactualhome === this.coloschome ? this.colclahome : this.coloschome ;
 
   }
-  
+  goForward() {}
+    
   
 
 }
