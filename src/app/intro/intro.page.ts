@@ -19,15 +19,28 @@ export class IntroPage implements OnInit {
   //this.router.navigateByUrl("/home");
   }
   
-
+  gohome(){
+    //marcar la intro como vista
+    localStorage.setItem('introSeen', 'true');
+    //navegar a home
+    this.router.navigateByUrl('/home');
+    console.log( 'introSeen DESDE INTRO:', localStorage.getItem('introSeen'));
+    console.log(' volver');
+  }
   ngOnInit() {
     this.Storageservice.set( 'introvisto', true);
     console.log('Intro abierta introvisto guardado en storage');
+    localStorage.setItem( 'introSeen', 'true');
   }
 
   goHome() {
     console.log("volver")
     this.router.navigateByUrl("/home");
+  }
+
+  finalizarIntro(){
+    localStorage.setItem('introSeen', 'true');
+    this.router.navigateByUrl('/home');
   }
 
 }
