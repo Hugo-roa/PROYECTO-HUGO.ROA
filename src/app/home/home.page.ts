@@ -35,7 +35,7 @@ export class HomePage implements OnInit {
   genres = [
     { 
       title: "musica rock",
-      image: "https://sp.yimg.com/ib/th/id/OIP.y1tzW0Afisqoyxt2FlcCcQAAAA?pid=Api&w=148&h=148&c=7&rs=1",
+      image: "https://tse2.mm.bing.net/th/id/OIP.2Pswx_yWlcV_NzPR4EWUKwHaE7?pid=Api&P=0&h=180",
       description: "Se conoce como rock a un conjunto de géneros variados de música popular, descendientes del rock and roll original, nacido en los Estados Unidos en la década de 1950",
 
     },

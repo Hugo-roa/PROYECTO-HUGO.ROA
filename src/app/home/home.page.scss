@@ -1,28 +1,52 @@
+.onboardingSwiper {
+  height: 100%;
+}
+
 .slide-content {
+  height: 100%;
+  padding: 40px 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: row;
   text-align: center;
-  padding: 10px;
-
 }
 
-.slide-content img {
- width: 100%;
- max-width: 300px;
- height: auto%;
- border-radius: 10px;
- margin: 5% 0;
-}
-
-.slide-content h2 {
-  margin: 0;
-  font-size: 30px;
+.img-anim {
+  width: 220px;
+  margin-bottom: 30px;
+  animation: fadeUp 0.8s ease forwards;
   
+
 }
 
-.slide-content p {
-  font-size: 15px;
-  text-align:justify;
-  border-radius: 0cap;
-  
+.title {
+  font-size: 24px;
+  font-weight: bold;
+  margin-bottom: 12px;
+  animation: fadeUp 1s ease forwards;
 }
 
-  
+.text {
+  font-size: 16px;
+  color: #666;
+  max-width: 150px;
+  animation: fadeUp 1.2s ease forwards;
+}
+
+.start-btn {
+  margin-top: 10px;
+  width: 30%;
+  animation: fadeUp 1.4s ease forwards;
+}
+
+@keyframes fadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

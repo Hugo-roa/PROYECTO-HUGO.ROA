@@ -1,4 +1,4 @@
-<ion-header>
+<ion-header [translucent]="true">
   <ion-toolbar>
     <ion-title>
       INTRO 
@@ -6,11 +6,30 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content >
- 
-    <ion-title size="large">soy intro</ion-title>
-    <ion-button expand="block" (click)="goHome()">volver a home</ion-button> 
+<ion-content fullscreen>
+  <swiper-container
+    class="onboardingSwiper"
+    pagination="true"
+    loop="true"
+    navigation="true"
+  >
+
     
+    <swiper-slide swiperSlide *ngFor="let genre of genres">
+       <div class="slide-content">
+         <h2 [style.color]="colactualtitulo">{{ genre.title }}</h2>
+         <img [src]="genre.image" [alt]="genre.title">
+         <p [style.color]="colclatexto">{{ genre.description }}</p>
+
+
+         <ion-button expand="block" class="start-btn" (click)="goHome()">
+          Empezar
+         </ion-button>
+        
+        
+         
+        </div>
+    </swiper-slide>
+
+  </swiper-container>
 </ion-content>
- 
- 
