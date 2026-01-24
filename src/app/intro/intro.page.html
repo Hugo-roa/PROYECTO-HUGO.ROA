@@ -6,7 +6,7 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content fullscreen>
+<ion-content  fullscreen class="intro-bg">
   <swiper-container
     class="onboardingSwiper"
     pagination="true"
@@ -17,9 +17,9 @@
     
     <swiper-slide swiperSlide *ngFor="let genre of genres">
        <div class="slide-content">
-         <h2 [style.color]="colactualtitulo">{{ genre.title }}</h2>
+         <h2 >{{ genre.title }}</h2>
          <img [src]="genre.image" [alt]="genre.title">
-         <p [style.color]="colclatexto">{{ genre.description }}</p>
+         <p >{{ genre.description }}</p>
 
 
          <ion-button expand="block" class="start-btn" (click)="goHome()">

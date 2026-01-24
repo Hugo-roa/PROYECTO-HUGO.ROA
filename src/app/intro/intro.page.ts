@@ -64,32 +64,20 @@ export class IntroPage implements OnInit, AfterViewInit {
     this.swiper.slidePrev();
   }
 
-  colclafondo = 'var(--color-claro-fondo)';
-  coloscfondo = 'var(--color-oscuro-fondo)';
-  colactualfondo= this.coloscfondo;
-
-  colclatexto = 'var(--color-claro-texto)'; 
-  colosctexto = 'var(--color-oscuro-texto)';
-  colactualtexto = this.colosctexto;
-
-  colclatitulo = 'var(--color-claro-titulo)';
-  colosctitulo = 'var(--color-oscuro-titulo)';
-  colactualtitulo = this.colosctitulo;
-
-  colclahome = 'var(--color-claro-home)';
-  coloschome = 'var(--color-oscuro-home)';
-  colactualhome = this.coloschome;
+  
+  
 
   constructor (private router: Router,private Storageservice : StorageService ){}
   
-  ngOnInit() {
+  
+ngOnInit() {
     
   }
 
   goHome() {
    this.router.navigateByUrl('/home');
    console.log(' volver');
-   
+   localStorage.setItem('introSeen', 'true');
    
   }
 
