@@ -1,12 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule,ReactiveFormsModule,FormBuilder,FormGroup, Validators, FormControl } from '@angular/forms';
-import { IonicModule } from '@ionic/angular';
+import { IonicModule , NavController} from '@ionic/angular';
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { AuthService} from '../services/auth.service'
+import { StorageService } from '../services/storage';
+import { Router } from '@angular/router';
 
 
-console.log('LOGIN PAGE CARGADA');
 
 @Component({
   selector: 'app-login',
@@ -20,6 +21,8 @@ console.log('LOGIN PAGE CARGADA');
 export class LoginPage implements OnInit {
 
   loginForm: FormGroup;
+
+  errorMessage: string = "" ;
 
   validation_Messages= {
     email:[
@@ -44,7 +47,7 @@ export class LoginPage implements OnInit {
 
   }
   
-  constructor(private formBuilder:FormBuilder, private authService: AuthService) { 
+  constructor(private formBuilder:FormBuilder, private authService: AuthService, private navCtrl:NavController,private storagservi: StorageService,private router: Router) { 
     this.loginForm = this.formBuilder.group({
       email:new FormControl(
        '',
@@ -66,17 +69,27 @@ export class LoginPage implements OnInit {
       
     })
   }
+  
 
+  
   ngOnInit() {
     
   }
 
   loginUser(credentials: any) {
-    console.log( credentials)
-    this.authService.logiUser(credentials).then(res =>{
-      console.log(res)
-    })
+  console.log(credentials);
 
-  }
+  this.authService.loginUser(credentials).then(async res => {
+    this.errorMessage = "";
 
-}
+    
+    await this.storagservi.set('login', true);
+    console.log(' login guardado en Ionic Storage');
+
+  
+    this.router.navigateByUrl('/intro', { replaceUrl: true });
+  })
+  .catch(error => {
+    this.errorMessage = error;
+  });
+}}

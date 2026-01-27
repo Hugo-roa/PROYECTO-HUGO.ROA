@@ -67,7 +67,7 @@ export class IntroPage implements OnInit, AfterViewInit {
   
   
 
-constructor (private router: Router,private Storageservice : StorageService ){}
+constructor (private router: Router,private storageService : StorageService ){}
   
   
 ngOnInit() {
@@ -75,12 +75,21 @@ ngOnInit() {
   }
 
 async goHome() {
-  await this.Storageservice.set('introSeen', true);
-  console.log('✅ introSeen guardado en Ionic Storage');
 
-  this.router.navigateByUrl('/home', { replaceUrl: true });
+  const isLogged = await this.storageService.get('login');
+
+  if (isLogged === true) {
+    // guardar que ya vio la intro
+    await this.storageService.set('introSeen', true);
+    console.log('✅ introSeen guardado en Ionic Storage');
+
+    await this.router.navigateByUrl('/home', { replaceUrl: true });
+
+  } else {
+    await this.router.navigateByUrl('/login', { replaceUrl: true });
+  }
 }
-  
+   
   
    
 
