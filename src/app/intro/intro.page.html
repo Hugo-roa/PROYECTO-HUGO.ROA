@@ -20,12 +20,18 @@
          <h2 >{{ genre.title }}</h2>
          <img [src]="genre.image" [alt]="genre.title">
          <p >{{ genre.description }}</p>
+         
 
 
          <ion-button expand="block" class="start-btn" (click)="goHome()">
           Empezar
          </ion-button>
-        
+         <ion-card *ngIf="genre === genres[0]" ... class="welcome-card ion-padding ion-text-center ion-align-items-center">
+          <ion-card-content>
+            🎧 Descubre nuevos sonidos
+            
+          </ion-card-content>
+        </ion-card> 
         
          
         </div>

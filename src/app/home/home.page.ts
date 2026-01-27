@@ -65,49 +65,75 @@ export class HomePage implements OnInit {
   ]
   constructor(private storageService: StorageService, 
    private router: Router) {}
+   
+  async goForwar() {
+  console.log('➡️ Volviendo a Intro');
 
-  goForwar() {
-    console.log( "ir a intro")
-    this.router.navigateByUrl('/intro');
-   }
- 
+  
+  this.tema = 'claro';
+
+  
+  this.router.navigateByUrl('/intro', { replaceUrl: true });
+}
+
+
+  
   async ngOnInit () {
     await this.loadStorageData();
+    
+  
   }
-
-  async loadStorageData(){
+   async loadStorageData(){
     const savedtheme = await this.storageService.get('theme');
     if (savedtheme){ 
-      this.colactualtexto = savedtheme;
-
+      this.tema = savedtheme;
     }
-  }
-  async cambiarcolor() {
+
+  
     
-    this.colactualtexto = this.colactualtexto === this.colosctexto ? this.colclatexto : this.colosctexto ;
-    await this.storageService.set('theme', this.colactualtexto)
-    console.log('tema Guardado:', this.colactualtexto)  
+  
+  }
+  tema: 'oscuro' | 'claro' = 'oscuro';
+
+  async cambiartema() {
+
+  if (this.tema === 'oscuro') {
+    this.tema = 'claro';
+
+    this.colactualtexto = this.colosctexto;
+    this.colactualtitulo = this.colosctitulo;
+    this.colactualfondo = this.coloscfondo;
+    this.colactualhome = this.coloschome;
+
+  } else {
+    this.tema = 'oscuro';
+
+    this.colactualtexto = this.colclatexto;
+    this.colactualtitulo = this.colclatitulo;
+    this.colactualfondo = this.colclafondo;
+    this.colactualhome = this.colclahome;
+
+     await this.storageService.set('theme', this.tema)
+    console.log('tema Guardado:')  
+
+    await this.storageService.set('theme', this.tema);
+    console.log(' Tema guardado en Ionic Storage:', this.tema);
+  }
   }
 
-  cambiarcolortitulo() {
 
-    this.colactualtitulo = this.colactualtitulo === this.colosctitulo ? this.colclatitulo : this.colosctitulo;
-  }
+}  
+   
 
-  cambiarcolorfondo() {
 
-    this.colactualfondo = this.colactualfondo === this.coloscfondo ? this.colclafondo : this.coloscfondo ;
+  
+ 
 
-  }
+ 
 
-  cambiarcolorhome() {
-
-    this.colactualhome = this.colactualhome === this.coloschome ? this.colclahome : this.coloschome ;
-
-  }
-  goForward() {}
+  
     
   
 
-}
+
   

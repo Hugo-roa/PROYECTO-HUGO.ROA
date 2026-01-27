@@ -62,5 +62,14 @@
   }
 }
 
+.welcome-card {
+  background: rgba(255, 255, 255, 0.9);
+  border-radius: 30px;
+  margin-top: 50px 0;
+  font-size: 16px;
+  line-height: 1.5;
+  text-align: center;
+}
+
 ion-content {
   transition: background 0.6s ease-in-out;}

@@ -3,6 +3,8 @@ import { CommonModule } from '@angular/common';
 import { FormsModule,ReactiveFormsModule,FormBuilder,FormGroup, Validators, FormControl } from '@angular/forms';
 import { IonicModule } from '@ionic/angular';
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+import { AuthService} from '../services/auth.service'
+
 
 console.log('LOGIN PAGE CARGADA');
 
@@ -11,7 +13,7 @@ console.log('LOGIN PAGE CARGADA');
   templateUrl: './login.page.html',
   styleUrls: ['./login.page.scss'],
   standalone: true,
-  imports: [IonicModule, CommonModule, FormsModule,ReactiveFormsModule],
+  imports: [IonicModule, CommonModule, FormsModule,ReactiveFormsModule,],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
 
@@ -42,7 +44,7 @@ export class LoginPage implements OnInit {
 
   }
   
-  constructor(private formBuilder:FormBuilder) { 
+  constructor(private formBuilder:FormBuilder, private authService: AuthService) { 
     this.loginForm = this.formBuilder.group({
       email:new FormControl(
        '',
@@ -71,6 +73,9 @@ export class LoginPage implements OnInit {
 
   loginUser(credentials: any) {
     console.log( credentials)
+    this.authService.logiUser(credentials).then(res =>{
+      console.log(res)
+    })
 
   }
 
