@@ -81,11 +81,11 @@ async goHome() {
   const isLogged = await this.storageService.get('login');
 
   if (isLogged === true) {
-    // guardar que ya vio la intro
+    
     await this.storageService.set('introSeen', true);
-    console.log('✅ introSeen guardado en Ionic Storage');
+    console.log(' introSeen guardado en Ionic Storage');
 
-    await this.router.navigateByUrl('/home', { replaceUrl: true });
+    await this.router.navigateByUrl('menu/home', { replaceUrl: true });
 
   } else {
     await this.router.navigateByUrl('/login', { replaceUrl: true });

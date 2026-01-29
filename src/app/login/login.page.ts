@@ -84,10 +84,11 @@ export class LoginPage implements OnInit {
 
     
     await this.storagservi.set('login', true);
-    console.log(' login guardado en Ionic Storage');
+    await this.storagservi.set('introSeen', true); 
+    console.log(' login e introSeen guardado en Ionic Storage');
 
   
-    this.router.navigateByUrl('/intro', { replaceUrl: true });
+    this.router.navigateByUrl('intro', { replaceUrl: true });
   })
   .catch(error => {
     this.errorMessage = error;
