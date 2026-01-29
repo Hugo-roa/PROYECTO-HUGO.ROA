@@ -52,9 +52,11 @@ export class IntroPage implements OnInit, AfterViewInit {
 
   ngAfterViewInit() {
     setTimeout(() => {
+      if (!this.swiperE1?.nativeElement) {
+        return;
       this.swiper = this.swiperE1.nativeElement.swiper;
       console.log('SWIPER INSTANCE:', this.swiper);
-    }, 0);
+    }}, 0);
   }
   nextSlide() {
     console.log(this.swiper);

@@ -1,0 +1,127 @@
+import { Component, OnInit } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { FormsModule,ReactiveFormsModule,FormBuilder,FormGroup,Validators,FormControl } from '@angular/forms';
+import { IonicModule,NavController } from '@ionic/angular';
+import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+import { AuthService} from '../services/auth.service'
+import { StorageService } from '../services/storage';
+import { Router } from '@angular/router';
+import { RegisterService }  from '../services/register.service'; 
+
+
+@Component({
+  selector: 'app-register',
+  templateUrl: './register.page.html',
+  styleUrls: ['./register.page.scss'],
+  standalone: true,
+  imports: [IonicModule, CommonModule, FormsModule,ReactiveFormsModule,],
+  schemas: [CUSTOM_ELEMENTS_SCHEMA]
+})
+export class RegisterPage implements OnInit {
+
+  registerForm: FormGroup;
+
+  errorMessage: string = "" ;
+  successMessage: string = "";
+
+  validation_Messages= {
+    nombre:[
+      {
+        type: "required", message:"nombre oblidatorio"
+      },
+      {
+        type: "name", message:"nombre invalido"
+      }
+      
+    ],
+
+    apellido:[
+      {
+        type: "required", message:"apellido oblidatorio"
+      },
+      {
+        type: "name" , message:"apellido invalido"
+      }
+      
+    ],
+    email:[
+      {
+        type: "required", message:"email oblidatorio"
+      },
+      {
+        type: "email", message:"email invalido"
+      }
+      
+    ],
+
+    password:[
+      {
+        type: "required", message:"password oblidatorio"
+      },
+      {
+        type: "password" , message:"password invalido"
+      }
+      
+    ]
+
+  }
+
+  constructor( private formBuilder:FormBuilder, private authService: AuthService, private navCtrl:NavController,private storagservi: StorageService,private router: Router, private registerService: RegisterService  ) { 
+    this.registerForm= this.formBuilder.group({
+      nombre:new FormControl(
+       '',
+       Validators.compose([
+        Validators.required,
+        
+       ])
+      ),
+      apellido: new FormControl(
+       '',
+       Validators.compose([
+        Validators.required,
+        
+       ])
+      ),
+      email:new FormControl(
+       '',
+       Validators.compose([
+        Validators.required,
+        Validators.email
+       ])
+      ),
+      password: new FormControl(
+       '',
+       Validators.compose([
+        Validators.required,
+        Validators.minLength(8)
+       ])
+      )
+
+    })
+  
+  }
+
+  ngOnInit() {
+  
+    } 
+    registerUser(credentials: any) {
+  console.log(credentials);
+
+  this.registerService.register(credentials)
+    .then(res => {
+      this.errorMessage = "";
+      console.log(res);
+
+      this.router.navigateByUrl('/login', { replaceUrl: true });
+    })
+    .catch(error => {
+      this.errorMessage = error;
+    })
+
+   }
+  goToLogin() {
+    this.router.navigateByUrl('/login');
+  }  
+}
+
+

@@ -1,0 +1,16 @@
+.btn-register {
+  --border-radius: 18px;          
+  --border-width: 2px;           
+  --border-style: solid;
+  --border-color: var(--ion-color-primary);
+  font-weight: 600;
+}
+
+.btn-login-link {
+  --border-radius: 18px;
+  --border-width: 1.5px;
+  --border-style: solid;
+  --border-color: var(--ion-color-primary);
+  margin-top: 12px;
+  font-weight: 500;
+}

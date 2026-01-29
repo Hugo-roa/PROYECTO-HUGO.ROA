@@ -30,7 +30,25 @@ export class AuthService {
     
     })
   }
+  
+  async registerUser(credentials: any) {
+    return new Promise((resolve, reject) => {
 
+     if ( credentials.nombre == "hugo" && 
+          credentials.apellido == "roa"&& 
+          credentials.email == "hugo@gmail.com" && 
+          credentials.password == '12345678'
+         ){
+         this.storagService.set('register',true);
+          console.log('register = true guardado en ionic Storage');      
+         
+        resolve('registro correcto');
+        } else {
+        reject('registro incorrecto');
+     }
+
+  })
+}
 
   
 }

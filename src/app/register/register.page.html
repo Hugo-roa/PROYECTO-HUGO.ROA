@@ -1,0 +1,82 @@
+<ion-header >
+  <ion-toolbar>
+    <ion-title>
+      REGISTRO
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content fullscreen class="register-bg">
+  <div class="register-container">
+    <figure class="profile-default-image ion-text-center">
+       
+       <img src="assets/imagenes/Profile-PNG-Pic.png"> 
+       <p> BIENVENIDO REGISTRATE </p>
+    </figure>
+    <ion-card class="register-card"> 
+      <form [formGroup]="registerForm" (ngSubmit)="registerUser(registerForm.value)" >
+        <ion-item>
+          <ion-input label= "Nombre :" labelPlacement="Stacked" placeholder="Escribe tu nombre" formControlName="nombre" type="text"></ion-input> 
+        </ion-item>
+        <div>
+          <ng-container *ngFor= "let validation of validation_Messages.nombre">
+            <div
+             *ngIf="(registerForm.get('nombre')?.hasError(validation.type) && registerForm.get('nombre')?.dirty )">
+                 {{validation.message}}
+            </div>
+          </ng-container>
+        </div>
+        <ion-item>
+         <ion-input label= "Apellido :" labelPlacement="Stacked" placeholder="Escribe tu apellido" formControlName="apellido" type="text"></ion-input> 
+        </ion-item>
+        <div>
+          <ng-container *ngFor= "let validation of validation_Messages.apellido">
+            <div
+            *ngIf="(registerForm.get('apellido')?.hasError(validation.type) && registerForm.get('apellido')?.dirty )">
+                 {{validation.message}}
+            </div>
+          </ng-container>
+        </div >
+        <ion-item>
+         <ion-input label= "email :" labelPlacement="Stacked" placeholder="Escribe tu email" formControlName="email"></ion-input> 
+        </ion-item>
+        <div>
+          <ng-container *ngFor= "let validation of validation_Messages.email">
+            <div
+            *ngIf="(registerForm.get('email')?.hasError(validation.type) && registerForm.get('email')?.dirty )">
+                 {{validation.message}}
+            </div>
+          </ng-container>
+        </div >
+        <ion-item>
+         <ion-input label= "password :" labelPlacement="Stacked" placeholder="Escribe tu contraseña" formControlName="password"></ion-input> 
+        </ion-item>
+        <div>
+          <ng-container *ngFor= "let validation of validation_Messages.password">
+            <div
+            *ngIf="(registerForm.get('password')?.hasError(validation.type) && registerForm.get('pasword')?.dirty )">
+                 {{validation.message}}
+            </div>
+          </ng-container>
+        </div >
+        <ion-button class="btn-register" expand="full" type="submit"  [disabled]="!registerForm.valid" class="login-btn" color="success ion-padding-center">
+          register
+        </ion-button>
+        <ion-text color="success" *ngIf="successMessage">
+        <p>{{ successMessage }}</p>
+        </ion-text>
+
+       <ion-text color="danger" *ngIf="errorMessage">
+       <p>{{ errorMessage }}</p>
+       </ion-text>
+       <ion-button class="btn-login-link" expand="block" fill="clear" color="lime" (click)="goToLogin()">
+          ¿Ya tienes cuenta? Inicia sesión
+       </ion-button>
+           
+      </form>
+       
+        
+    </ion-card> 
+  </div>  
+     
+</ion-content>

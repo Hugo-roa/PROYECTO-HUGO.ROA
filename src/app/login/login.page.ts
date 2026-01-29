@@ -44,7 +44,7 @@ export class LoginPage implements OnInit {
       }
       
     ]
-
+    
   }
   
   constructor(private formBuilder:FormBuilder, private authService: AuthService, private navCtrl:NavController,private storagservi: StorageService,private router: Router) { 
@@ -92,4 +92,8 @@ export class LoginPage implements OnInit {
   .catch(error => {
     this.errorMessage = error;
   });
-}}
+  }
+  goRegister() {
+  this.navCtrl.navigateForward('/register');
+}
+}
