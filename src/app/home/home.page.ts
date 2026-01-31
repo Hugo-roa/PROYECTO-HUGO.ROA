@@ -1,16 +1,17 @@
 import { Component, OnInit } from '@angular/core';
-import { IonicModule } from '@ionic/angular';
+import { IonicModule,ModalController}from '@ionic/angular';
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { StorageService } from '../services/storage';
 import {  Router } from '@angular/router';
-
+import { MusicService } from '../services/music.service';
+import { SongsModalPage } from '../songs-modal/songs-modal.page';
 
 @Component({
   selector: 'app-home',
   templateUrl: 'home.page.html',
   styleUrls: ['home.page.scss'],
-  imports: [IonicModule,CommonModule],
+  imports: [IonicModule,CommonModule,],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
 export class HomePage implements OnInit {
@@ -63,11 +64,17 @@ export class HomePage implements OnInit {
   
 
   ]
+
+  tracks: any;
+  albums: any;
+  localArtists: any;
+  artists: any;
+
   constructor(private storageService: StorageService, 
-   private router: Router) {}
+   private router: Router, private musicService: MusicService,private modalController:ModalController){}
    
   async goForwar() {
-  console.log('➡️ Volviendo a Intro');
+  console.log(' Volviendo a Intro');
 
   
   this.tema = 'claro';
@@ -79,11 +86,85 @@ export class HomePage implements OnInit {
 
   
   async ngOnInit () {
-    await this.loadStorageData();
+    this.loadArtists();
+    this.getLocalArtists();
+    this.loadAlbums();
+    this.loadTracks();
     
+    
+    await this.loadStorageData();
+    this.simularCargaDatos();
   
   }
-   async loadStorageData(){
+
+  async simularCargaDatos() {
+    const data = await this.obtenerDatosSimulados();
+    console.log('datos simulados:',data)
+  }
+  obtenerDatosSimulados() {
+  return new Promise((resolve, reject) => {
+    setTimeout(() => {
+      resolve(['rock', 'pop', 'balada', 'llanera']);
+    }, 6000);
+  });
+}
+
+  loadTracks(){
+    this.musicService.getTracks().then(tracks =>{
+     this.tracks= tracks;
+     console.log(this.tracks, "las canciones")
+    })
+  }
+
+  loadAlbums(){
+    this.musicService.getAlbums().then(albums =>{
+     this.albums= albums;
+     console.log(this.albums, "los albums")
+    })  
+
+  }
+
+   loadArtists(){
+    this.musicService.getArtists().then(artists =>{
+     this.artists= artists;
+     console.log(this.artists, "los artistas")
+    })  
+
+  }
+
+
+  getLocalArtists(){
+    this.localArtists = this.musicService.getLocalArtist();
+    console.log("Artists",this.localArtists.artists)
+  }
+  
+  async showSongs(albumId: string){
+    console.log ('album Id',albumId)
+    const songs = await this.musicService.getSongsByAlbum(albumId);
+    console.log("songs:",songs)
+    const modal=await this.modalController.create({
+      component:SongsModalPage,
+      componentProps: {
+        songs:songs
+      }
+    });
+    modal.present();
+  }
+
+  async showSongsArtist(artistId: string){
+    console.log ('artist Id',artistId)
+    const songs = await this.musicService.getSongsByArtist(artistId);
+    console.log("songs:",songs)
+    const modal=await this.modalController.create({
+      component:SongsModalPage,
+      componentProps: {
+        songs:songs
+      }
+    });
+    modal.present();
+  }
+
+  async loadStorageData(){
     const savedtheme = await this.storageService.get('theme');
     if (savedtheme){ 
       this.tema = savedtheme;

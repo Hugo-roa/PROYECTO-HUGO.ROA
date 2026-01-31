@@ -12,34 +12,15 @@
 
 <ion-content [style.--background]="colactualfondo">
   <swiper-container
-    class="onboardingSwiper"
     pagination="true"
-    navigation="true">
-  
-
-    
-    <swiper-slide swiperSlide *ngFor="let genre of genres">
-      <div class="slide-content">
-        <h2 [style.color]="colactualtitulo">{{ genre.title }}</h2>
-        <img [src]="genre.image" [alt]="genre.title">
-        <p [style.color]="colactualtexto">{{ genre.description }}</p>
-
-      
-       <div class="fila">
-        
-
-        <ion-button class="start-btn" (click)="goForwar()"> INTRO</ion-button>
-
-        <ion-button class="start-btn"(click)="cambiartema() ">Tema</ion-button>
-      
-       </div> 
-        <h3>DEMO IONIC STORAGE</h3>
-        <div [style.background-color]="colactualtexto"></div>
-        <p>Team Actual: {{ colactualtexto == colosctexto ? 'osctexto' : 'clatexto'}}</p>
-      </div>
-      
-    
+    slides-per-view="3"
+    loop= "true">
+    <swiper-slide swiperSlide *ngFor="let artist of artists" (click)="showSongsArtist(artist.id)" >    
+        <img [src]="artist.image"/>
+        <p [style.color]="colactualtitulo">{{ artist.name }}</p>
+     
     </swiper-slide>
-
+       
+    
   </swiper-container> 
 </ion-content>
