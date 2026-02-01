@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { NavParams } from '@ionic/angular'
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
-import { IonicModule}from '@ionic/angular';
+import { IonicModule,ModalController}from '@ionic/angular';
 
 
 @Component({
@@ -20,7 +20,7 @@ export class SongsModalPage implements OnInit {
 
   songs:any;
   artists: any;
-  constructor(private navParams:NavParams){}
+  constructor(private navParams:NavParams,private modalcontroller: ModalController){}
 
   ngOnInit() {
     this.songs= this.navParams.data['songs']
@@ -29,6 +29,11 @@ export class SongsModalPage implements OnInit {
     
 
   } 
+
+  async selectSong(song:any){
+    await this.modalcontroller.dismiss(song)
+    console.log("cancion seleccionada"),song
+  }
 
 
 }

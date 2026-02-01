@@ -69,7 +69,15 @@ export class HomePage implements OnInit {
   albums: any;
   localArtists: any;
   artists: any;
-
+  song: any = {
+    name: '',
+    preview_url: '',
+    playing: false
+  };
+  currentSong: any;
+  newTime: any;
+  favorites: any[] = [];
+  isFavorite: boolean = false;
   constructor(private storageService: StorageService, 
    private router: Router, private musicService: MusicService,private modalController:ModalController){}
    
@@ -90,7 +98,7 @@ export class HomePage implements OnInit {
     this.getLocalArtists();
     this.loadAlbums();
     this.loadTracks();
-    
+    this.loadFavorites();
     
     await this.loadStorageData();
     this.simularCargaDatos();
@@ -99,7 +107,7 @@ export class HomePage implements OnInit {
 
   async simularCargaDatos() {
     const data = await this.obtenerDatosSimulados();
-    console.log('datos simulados:',data)
+  
   }
   obtenerDatosSimulados() {
   return new Promise((resolve, reject) => {
@@ -112,14 +120,14 @@ export class HomePage implements OnInit {
   loadTracks(){
     this.musicService.getTracks().then(tracks =>{
      this.tracks= tracks;
-     console.log(this.tracks, "las canciones")
+    
     })
   }
 
   loadAlbums(){
     this.musicService.getAlbums().then(albums =>{
      this.albums= albums;
-     console.log(this.albums, "los albums")
+     
     })  
 
   }
@@ -127,7 +135,7 @@ export class HomePage implements OnInit {
    loadArtists(){
     this.musicService.getArtists().then(artists =>{
      this.artists= artists;
-     console.log(this.artists, "los artistas")
+    
     })  
 
   }
@@ -135,13 +143,13 @@ export class HomePage implements OnInit {
 
   getLocalArtists(){
     this.localArtists = this.musicService.getLocalArtist();
-    console.log("Artists",this.localArtists.artists)
+    
   }
   
   async showSongs(albumId: string){
-    console.log ('album Id',albumId)
+   
     const songs = await this.musicService.getSongsByAlbum(albumId);
-    console.log("songs:",songs)
+   
     const modal=await this.modalController.create({
       component:SongsModalPage,
       componentProps: {
@@ -152,16 +160,86 @@ export class HomePage implements OnInit {
   }
 
   async showSongsArtist(artistId: string){
-    console.log ('artist Id',artistId)
+
+    
+    
     const songs = await this.musicService.getSongsByArtist(artistId);
-    console.log("songs:",songs)
+    
     const modal=await this.modalController.create({
       component:SongsModalPage,
       componentProps: {
         songs:songs
       }
     });
+    modal.onDidDismiss().then((result)=>{
+      if (result.data){
+        
+        this.song = result.data
+        this.checkIfFavorite();
+      }
+    })
     modal.present();
+  }
+
+  play(){
+    this.currentSong = new Audio(this.song.preview_url)
+    this.currentSong.play();
+    this.currentSong.addEventListener("timeupdate",()=>{
+      this.newTime = this.currentSong.currentTime /this.currentSong.duration;
+    })
+    this.song.playing = true;
+  }
+  pause(){
+    this.currentSong.pause();
+    this.song.playing=false;
+  }
+
+  formatTime(seconds: number){
+    if (!seconds || isNaN(seconds)) return "0:00"
+    const minutes = Math.floor(seconds/60);
+    const remainingSeconds = Math.floor(seconds %60);
+    return `${minutes}:${remainingSeconds.toString().padStart(2, '0')}`
+
+  }
+
+  getRemainingTime(){
+    if (!this.currentSong?.duration || !this.currentSong?.currentTime){
+      return 0;
+    }
+    return this.currentSong.duration - this.currentSong.currentTime;
+  }
+
+  async loadFavorites() {
+  const favs = await this.storageService.get('favorites');
+  this.favorites = favs || [];
+  }
+
+  checkIfFavorite() {
+  this.isFavorite = this.favorites.some(
+    fav => fav.id === this.song.id
+  );
+  }
+
+  async toggleFavorite() {
+  if (!this.song?.id) return;
+
+  const index = this.favorites.findIndex(
+    fav => fav.id === this.song.id
+  );
+
+  if (index === -1) {
+    
+    this.favorites.push(this.song);
+    this.isFavorite = true;
+    console.log('Agregada a favoritos');
+  } else {
+    
+    this.favorites.splice(index, 1);
+    this.isFavorite = false;
+    console.log('eliminada de favoritos');
+  }
+    await this.storageService.set('favorites', this.favorites);
+    console.log(' Favoritos:', this.favorites);
   }
 
   async loadStorageData(){
